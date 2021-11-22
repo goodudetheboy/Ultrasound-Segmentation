@@ -22,7 +22,10 @@ class UltrasoundSegmentation(data.Dataset):
         mask_path = self.mask_files[index]
         data =  cv2.imread(img_path)
         label = cv2.imread(mask_path, 0)
-        return torch.from_numpy(data).float(), torch.from_numpy(label).float()
+        label_norm = label.copy()
+        label_norm[label==0] = 0
+        label_norm[label!=0] = 1
+        return torch.from_numpy(data).float(), torch.from_numpy(label_norm)
 
     def __len__(self):
         return len(self.img_files)
