@@ -24,7 +24,7 @@ class UltrasoundSegmentation(data.Dataset):
         label = cv2.imread(mask_path, 0)
         label_norm = label.copy()
         label_norm[label==0] = 0
-        label_norm[label!=0] = 1
+        label_norm[label!=0] = 255
         return torch.from_numpy(data).float(), torch.from_numpy(label_norm)
 
     def __len__(self):
